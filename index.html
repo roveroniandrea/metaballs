@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Metaballs test</title>
+		<link rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+        <div class="rootContainer">
+            <div class="ballsHelperColorSetter">
+                <div class="contrastContainer">
+                    <div class="blurContainer">
+                        <div class="ball b1"></div>
+                        <div class="ball b2"></div>
+                        <div class="ball bmousefollow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>Select background color: 
+            <input type="color" name="bg" id="bgcolor">
+            <span id="r0"></span>
+        </p>
+        <p>Select balls color: 
+            <input type="color" name="balls" id="ballscolor">
+            <span id="r1"></span>
+        </p>
+        <p id="r2">Ball color resulting: </p>
+        <p id="r3">Ball color loss: </p>
+        <p id="r4">Helper color is: </p>
+        <p>Furmula is: <code>helperColor * backgroundColor = resultingColor</code></p>
+
+        <script src="index.js"></script>
+    </body>
+</html>

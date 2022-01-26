@@ -1,0 +1,81 @@
+
+/*The background color of this element will be set as the chosen background color of the metaballs*/
+.rootContainer{
+	/*Just to set a dimension, can be changed with any value*/
+	width: 500px;
+	height: 500px;
+}
+
+/*This element is used to set the helper color, which will be added to the black color of the metaballs*/
+.ballsHelperColorSetter{
+	mix-blend-mode: multiply;
+	width: 100%;
+	height: 100%;
+}
+
+.contrastContainer {
+	/*The contrast is used to mantain the borders of the metaball despite of the blur effect of the child*/
+	-webkit-filter: contrast(100000%);
+	filter: contrast(100000%);
+	
+	/**The screen mode means additive, meaning that the black balls will be colored with the bg color of the parent element (ballsHelperColorSetter)*/
+	mix-blend-mode: screen;
+
+	/*White bg color ensured the this element will render black metaballs in a white background*/
+	background-color: white;
+
+	/*Without overflow property, there can be some weird colors at the edges*/
+	overflow: hidden;
+
+	width: 100%;
+	height: 100%;
+}
+
+.blurContainer {
+	/*The blur filter is used to attract metaballs together. It causes border to fade out, so a high contrast is applied by the parent element (contrastContainer)*/
+	-webkit-filter: blur(40px);
+	filter: blur(40px);
+
+	width: 100%;
+	height: 100%;
+}
+
+/*Rapresents a metaball, must be colored black*/
+.ball {
+	border-radius: 50%;
+	background-color: black;
+	position: absolute;
+}
+
+.b1 {
+	height: 100px;
+	width: 100px;
+	top: 100px;
+	left: 200px;
+}
+
+.b2 {
+	height: 200px;
+	width: 200px;
+	top: 100px;
+	animation: updown 1s ease-in-out infinite alternate;
+}
+
+/*This ball follows the mouse*/
+.bmousefollow{
+    height: 150px;
+    width: 150px;
+    top: var(--mouseY);
+    left: var(--mouseX);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+/*A demo animation for the second ball*/
+@keyframes updown {
+	0% {
+		top: 100px;
+	}
+	100% {
+		top: 200px;
+	}
+}
