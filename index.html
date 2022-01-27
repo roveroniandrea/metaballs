@@ -8,30 +8,38 @@
 		<link rel="stylesheet" href="main.css" />
 	</head>
 	<body>
-        <div class="rootContainer">
-            <div class="ballsHelperColorSetter">
-                <div class="contrastContainer">
-                    <div class="blurContainer">
-                        <div class="ball b1"></div>
-                        <div class="ball b2"></div>
-                        <div class="ball bmousefollow"></div>
+        <div class="bgColorDifferenceHelper">
+            <div class="bgColorSetter">
+                <div class="ballsHelperColorSetter">
+                    <div class="contrastContainer">
+                        <div class="blurContainer">
+                            <div class="ball b1"></div>
+                            <div class="ball b2"></div>
+                            <div class="ball bmousefollow"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <p>Select background color: 
-            <input type="color" name="bg" id="bgcolor">
-            <span id="r0"></span>
-        </p>
-        <p>Select balls color: 
-            <input type="color" name="balls" id="ballscolor">
-            <span id="r1"></span>
-        </p>
-        <p id="r2">Ball color resulting: </p>
-        <p id="r3">Ball color loss: </p>
+        <div style="display: flex">
+            <div style="max-width: 50vw; margin-right: 2rem;">
+                <p>Select background color: 
+                    <input type="color" name="bg" id="bgcolor">
+                    <span id="r0"></span>
+                </p>
+                <p>Select balls color: 
+                    <input type="color" name="balls" id="ballscolor">
+                    <span id="r1"></span>
+                </p>
+            </div>
+            <div style="max-width: 50vw;">
+                <p>Attraction force: <input type="number" id="blurInput"> px</p>
+            </div>
+        </div>
+        <p id="r3">bgColorDifferenceHelper is: </p>
         <p id="r4">Helper color is: </p>
-        <p>Furmula is: <code>helperColor * backgroundColor = resultingColor</code></p>
-
+        <p>Formula for the resulting ball color is: <code>((black + helperColor) * backgroundColorHelper) - bgColorDifferenceHelper = finalMetaballsColor</code></p>
+        <p>Formula for the resulting background color is: <code>(white * backgroundColorHelper) - bgColorDifferenceHelper = finalBackgroundColor</code></p>
         <script src="index.js"></script>
     </body>
 </html>

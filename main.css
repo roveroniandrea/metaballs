@@ -1,9 +1,15 @@
-
-/*The background color of this element will be set as the chosen background color of the metaballs*/
-.rootContainer{
+.bgColorDifferenceHelper{
 	/*Just to set a dimension, can be changed with any value*/
 	width: 500px;
 	height: 500px;
+}
+
+
+/*The background color of this element will be set as the calculation of chosen background color of the metaballs with the metaballs color*/
+.bgColorSetter{
+	mix-blend-mode: difference;
+	width: 100%;
+	height: 100%;
 }
 
 /*This element is used to set the helper color, which will be added to the black color of the metaballs*/
@@ -33,8 +39,8 @@
 
 .blurContainer {
 	/*The blur filter is used to attract metaballs together. It causes border to fade out, so a high contrast is applied by the parent element (contrastContainer)*/
-	-webkit-filter: blur(40px);
-	filter: blur(40px);
+	-webkit-filter: blur(var(--blurIntensity));
+	filter: blur(var(--blurIntensity));
 
 	width: 100%;
 	height: 100%;

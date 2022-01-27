@@ -17,36 +17,47 @@ document.querySelector('#ballscolor').addEventListener('change', (e) => {
 	setColors();
 });
 
+document.querySelector('#blurInput').addEventListener('change', (e) => {
+	document.body.style.setProperty('--blurIntensity', `${Math.max(e.target.value || 0)}px`);
+});
+
+const initialBlur = 40;
+document.querySelector('#blurInput').value = initialBlur;
+document.body.style.setProperty('--blurIntensity', `${initialBlur}px`);
+
+
 function setColors() {
-	document.querySelector('.rootContainer').style.backgroundColor = bgColor;
 	const bgColorRgb = hexToRgb(bgColor);
 	const ballsColorRgb = hexToRgb(ballsColor);
+	const differenceColorRgb = {
+		r: Math.max(ballsColorRgb.r - bgColorRgb.r, 0),
+		g: Math.max(ballsColorRgb.g - bgColorRgb.g, 0),
+		b: Math.max(ballsColorRgb.b - bgColorRgb.b, 0),
+	};
+	bgColorRgb.r += differenceColorRgb.r;
+	bgColorRgb.g += differenceColorRgb.g;
+	bgColorRgb.b += differenceColorRgb.b;
+
+	document.querySelector('.bgColorSetter').style.backgroundColor = colorToString(bgColorRgb);
+	document.querySelector('.bgColorDifferenceHelper').style.backgroundColor = colorToString(differenceColorRgb);
 	/**The helper color ensures that the resulting balls color will be as close as possible to the chosen one */
 	const helperColor = {
-		r: ((ballsColorRgb.r / bgColorRgb.r) * 255) % 255,
-		g: ((ballsColorRgb.g / bgColorRgb.g) * 255) % 255,
-		b: ((ballsColorRgb.b / bgColorRgb.b) * 255) % 255,
+		r: (ballsColorRgb.r / bgColorRgb.r) * 255,
+		g: (ballsColorRgb.g / bgColorRgb.g) * 255,
+		b: (ballsColorRgb.b / bgColorRgb.b) * 255,
 	};
 	document.querySelector('.ballsHelperColorSetter').style.backgroundColor = colorToString(helperColor);
 
-	document.querySelector('#r0').innerHTML = colorToString(bgColorRgb);
+	document.querySelector('#r0').innerHTML = colorToString(hexToRgb(bgColor));
 
 	document.querySelector('#r1').innerHTML = colorToString(ballsColorRgb);
-	/**The resulting color of the balls, can be different from the chosen one */
-	const calculatedResultingColor = {
-		r: ((helperColor.r / 255) * (bgColorRgb.r / 255) * 255) % 255,
-		g: ((helperColor.g / 255) * (bgColorRgb.g / 255) * 255) % 255,
-		b: ((helperColor.b / 255) * (bgColorRgb.b / 255) * 255) % 255,
-	};
-	/**There might be some losses in the final ball color due to `mix-blend-mode: multiply;` calculating only the modulus values */
-	const calculatedLossColor = {
-		r: ballsColorRgb.r - calculatedResultingColor.r,
-		g: ballsColorRgb.g - calculatedResultingColor.g,
-		b: ballsColorRgb.b - calculatedResultingColor.b,
-	};
-	document.querySelector('#r2').innerHTML = `Ball color resulting: ${colorToString(calculatedResultingColor)}`;
-	document.querySelector('#r3').innerHTML = `Ball color loss: ${colorToString(calculatedLossColor)}`;
 	document.querySelector('#r4').innerHTML = `Helper color is: ${colorToString(helperColor)}`;
+	if(differenceColorRgb.r === 0 && differenceColorRgb.g === 0 && differenceColorRgb.b === 0){
+		document.querySelector('#r3').innerHTML = `bgColorDifferenceHelper is not required`;
+	}
+	else{
+		document.querySelector('#r3').innerHTML = `bgColorDifferenceHelper is: ${colorToString(differenceColorRgb)}`;
+	}
 }
 
 /**Converts a string formatted as `#xxxxxx` into the three color channels in range `0-255` */
@@ -68,7 +79,7 @@ function colorToString(obj) {
 
 /**Used to make the moving ball follow the mouse */
 document.addEventListener('mousemove', (e) => {
-	const container = document.querySelector('.rootContainer');
+	const container = document.querySelector('.bgColorSetter');
 	document.body.style.setProperty('--mouseX', `${e.pageX - container.offsetTop}px`);
 	document.body.style.setProperty('--mouseY', `${e.pageY - container.offsetLeft}px`);
 });
