@@ -1,40 +1,37 @@
-.bgColorDifferenceHelper{
-	/*Just to set a dimension, can be changed with any value*/
+.metaballsContainer {
 	width: 500px;
 	height: 500px;
+	position: relative;
 }
 
-
-/*The background color of this element will be set as the calculation of chosen background color of the metaballs with the metaballs color*/
-.bgColorSetter{
-	mix-blend-mode: difference;
+.metaballsContainer .bg,
+.metaballsContainer .fg {
+	position: absolute;
+	top: 0px;
+	left: 0px;
 	width: 100%;
 	height: 100%;
+	mix-blend-mode: multiply; /*The bg will have white metaballs while the fg white background. The multiplication isthe the wanted*/
+	overflow: hidden; /*Without this property there may be some weird effects near the borders*/
 }
 
-/*This element is used to set the helper color, which will be added to the black color of the metaballs*/
-.ballsHelperColorSetter{
-	mix-blend-mode: multiply;
-	width: 100%;
+.constrastContainer {
+	background-color: white;
 	height: 100%;
+	width: 100%;
+	mix-blend-mode: screen; /*With screen, the background color and the metaballs color will be set on the repective contrastContainer*/
 }
 
-.contrastContainer {
-	/*The contrast is used to mantain the borders of the metaball despite of the blur effect of the child*/
+/*Both contrast containers provide contrast to the metaballs*/
+.fg .constrastContainer {
 	-webkit-filter: contrast(100000%);
 	filter: contrast(100000%);
-	
-	/**The screen mode means additive, meaning that the black balls will be colored with the bg color of the parent element (ballsHelperColorSetter)*/
-	mix-blend-mode: screen;
+}
 
-	/*White bg color ensured the this element will render black metaballs in a white background*/
-	background-color: white;
-
-	/*Without overflow property, there can be some weird colors at the edges*/
-	overflow: hidden;
-
-	width: 100%;
-	height: 100%;
+/**The contrast container on the background is inverted so it will show the metaballs in white*/
+.bg .constrastContainer {
+	-webkit-filter: contrast(100000%) invert();
+	filter: contrast(100000%) invert();
 }
 
 .blurContainer {
@@ -68,12 +65,12 @@
 }
 
 /*This ball follows the mouse*/
-.bmousefollow{
-    height: 150px;
-    width: 150px;
-    top: var(--mouseY);
-    left: var(--mouseX);
-    transform: translateX(-50%) translateY(-50%);
+.bmousefollow {
+	height: 150px;
+	width: 150px;
+	top: var(--mouseY);
+	left: var(--mouseX);
+	transform: translateX(-50%) translateY(-50%);
 }
 
 /*A demo animation for the second ball*/
