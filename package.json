@@ -1,13 +1,13 @@
 {
   "name": "metaballs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Metaballs generator, suporting custom background and metaballs colors",
   "main": "index.js",
   "scripts": {
     "start": "lite-server"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["metaballs", "blobs"],
+  "author": "Andrea Roveroni",
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^2.6.1"
